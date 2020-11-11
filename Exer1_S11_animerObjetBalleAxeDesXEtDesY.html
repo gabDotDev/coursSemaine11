@@ -28,6 +28,7 @@
             posX: 0, //Position de départ sur l'axe des x
             posY: 0, //Position de départ sur l'axe des y
             vitesseX: 3, //Vitesse horizontale de la balle
+            vitesseY: 3,
             largeur: 40, //Largeur de la balle
             hauteur: 40 //Hauteur de la balle
         }
@@ -51,7 +52,7 @@
             balle.posX += balle.vitesseX;
 
             //Modifier la position verticale de la balle
-
+            balle.posY +=balle.vitesseY;
 
             //Si la balle touche les côtés droit ou gauche du canvas
             //On inverse la vitesse horizontale
@@ -64,10 +65,10 @@
 
             //Si la balle touche le haut ou le bas du canvas 
             //On inverse la vitesse verticale
-            let posYmax;
+            let posYmax = leCanvas.height - balle.hauteur;
 
-            if (true) {
-
+            if (balle.posY < 0 || balle.posY > posYmax) {
+                balle.vitesseY *= -1;
             }
 
 
