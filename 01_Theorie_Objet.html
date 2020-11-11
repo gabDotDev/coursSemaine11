@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>01 - Théorie sur les objets en JavaScript</title>
+    <style type="text/css">
+        canvas {
+            border: 4px solid;
+        }
+
+    </style>
+</head>
+
+<body>
+    <script>
+        //Déclaration d’une variable objet en JavaScript: unePersonne 
+        let unePersonne = {
+            prenom: "Brendan",
+            nom: "Eich",
+            age: 59,
+            estProgrammeur: true
+        }
+
+        console.log(unePersonne);
+
+        //Accès et affichage des propriétés de l'objet personne
+        alert(unePersonne.prenom + " " + unePersonne.nom + " est l'inventeur de JavaScript...");
+
+        //Quel âge Brendan aura-il l'année prochaine
+        unePersonne.age++;
+
+        alert("L'année prochaine il aura " + unePersonne.age + " ans!");
+
+        //console.log(unePersonne);
+
+    </script>
+
+</body>
+
+</html>
