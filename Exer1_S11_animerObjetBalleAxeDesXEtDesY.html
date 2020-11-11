@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Semaine 11- Exercice 01 - Animer horizontalement et verticalement le déplacement d'un objet balle</title>
+    <style type="text/css">
+        canvas {
+            border: 2px solid black;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h3>On anime un objet <em>balle</em> dans le canvas, à l'horizontale et à la verticale</h3>
+
+    <canvas width="600" height="150"> </canvas>
+
+    <script>
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+
+        //Déclaration de la variale balle de type Objet
+        let balle = {
+            img: new Image(), //image de la balle
+            posX: 0, //Position de départ sur l'axe des x
+            posY: 0, //Position de départ sur l'axe des y
+            vitesseX: 3, //Vitesse horizontale de la balle
+            largeur: 40, //Largeur de la balle
+            hauteur: 40 //Hauteur de la balle
+        }
+
+        //La source de l'image de la balle
+        balle.img.src = "images/balle.png";
+
+        //Dessin du déplacement de la balle à une cadence 60 ips (images par seconde)
+        setInterval(deplacerBalle, 1000 / 60);
+
+
+        /////////////////// LES FONCTIONS /////////////////// 
+
+
+        //Fonction pour déplacer la balle
+        function deplacerBalle() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Modifier la position horizontale de la balle
+            balle.posX += balle.vitesseX;
+
+            //Modifier la position verticale de la balle
+
+
+            //Si la balle touche les côtés droit ou gauche du canvas
+            //On inverse la vitesse horizontale
+            let posXmax = leCanvas.width - balle.largeur;
+
+            if (balle.posX < 0 || balle.posX > posXmax) {
+                balle.vitesseX *= -1; //ou balle.vitesse = -balle.vitesseX
+            }
+
+
+            //Si la balle touche le haut ou le bas du canvas 
+            //On inverse la vitesse verticale
+            let posYmax;
+
+            if (true) {
+
+            }
+
+
+
+            //Dessiner la balle
+            ctx.drawImage(balle.img, balle.posX, balle.posY);
+        }
+
+    </script>
+
+</body>
+
+</html>

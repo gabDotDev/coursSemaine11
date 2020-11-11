@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Semaine 11- Exercice 02 - Déplacer un objet animé avec détection de collision</title>
+    <style type="text/css">
+        canvas {
+            background: linear-gradient(to bottom, #d0ecf4, #00bbd6);
+            border: 2px solid #514f8f;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h3>On déplace une <em>animation (feuille de sprites)</em> dans le canvas avec détection de collision</h3>
+    <canvas width="1024" height="400"> </canvas>
+
+    <script>
+        //Récupérer le canvas
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+        //Un poulet animé
+        let poulet = {
+            img: new Image(),
+            largeur: 104, //Largeur d'une vignette et du dessin dans le canvas
+            hauteur: 86, //Hauteur d'une vignette et du dessin dans le canvas
+            nbVignettes: 8,
+            indexVignette: 0,
+            sourceX: 0,
+            posX: leCanvas.width * 0.05, //Position sur l'axe des X
+            posY: leCanvas.height * 0.3, //Position initiale sur l'axe des Y
+            vitesseY: 4, //Vitesse du poulet sur l'axe des Y
+        }
+
+        //Mettre la première animation
+        poulet.img.src = "images/volPoulet_Jeu.png";
+
+        //Le mur 
+
+        //Au démarrage le mur est placé en bas et è l'extrémité droite du canvas
+
+        //L'image du mur
+
+
+
+        //Les flèches du clavier
+        let flecheHaut = false;
+        let flecheBas = false;
+
+        /////////////////////////////////////////////////////
+
+        //Actualisation du jeu à une cadence de 60 ips
+        let intervalIDActualiserJeu = setInterval(actualiserLeJeu, 1000 / 60);
+
+        //Changer l'image du poulet à une cadence de 12 ips
+        let intervalIDImagePoulet = setInterval(gererImageDuPoulet, 1000 / 12);
+
+        //Écouteur sur le document pour détecter si des touches de clavier sont appuyées ou relâchées
+        document.addEventListener("keydown", presserTouche);
+        document.addEventListener("keyup", relacherTouche);
+
+
+        //////////////  LES FONCTIONS //////////////////////
+        //Fonction pour actualiser l'affichage du jeu     
+        function actualiserLeJeu() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Déplacer le mur
+
+
+            //Déplacer le poulet
+            deplacerLePoulet();
+
+            //S'il y a une collision entre le poulet et le mur
+            //C'est la fin du jeu et le poulet perd...
+            let finJeu = false;
+            let siCollisionPouletMur;
+
+            if (true) {
+
+            }
+
+            //Si le mur sort de la scène
+            //C'est aussi la fin du jeu et le poulet gagne
+            if (true) {
+
+            }
+
+            //Si le jeu est fini, on arrête les minuteries en cours
+            //Et on part l'animation de la fin à une cadence de 12 ips
+            //L'animation de fin joue à l'infini...
+            if (true) {
+
+            }
+        }
+
+
+        // Détecte quelles touches sont appuyées
+        function presserTouche(event) {
+            //Enregistrer si une touche haut/bas est pressée
+            if (event.keyCode == 38) { //flèche haut
+                flecheHaut = true;
+                flecheBas = false;
+            }
+            if (event.keyCode == 40) { //flèche bas
+                flecheBas = true;
+                flecheHaut = false;
+            }
+        }
+
+        // Détecte quelles touches sont relâchées
+        function relacherTouche(event) {
+            //Enregistrer si une touche haut/bas est relâchée
+            if (event.keyCode == 38) { //flèche haut
+                flecheHaut = false;
+            }
+            if (event.keyCode == 40) { //flèche bas
+                flecheBas = false;
+            }
+        }
+
+        //Fonction pour déplacer le poulet
+        function deplacerLePoulet() {
+            //On déplace le poulet selon la touche active
+            if (flecheHaut) {
+                poulet.posY -= poulet.vitesseY;
+            }
+            if (flecheBas) {
+                poulet.posY += poulet.vitesseY;
+            }
+
+            //S'assurer que le poulet ne sort pas des limites du canvas
+            //Limite haut
+            if (poulet.posY < 0) {
+                poulet.posY = 0;
+            }
+
+            //Limite bas
+            let posYmax = leCanvas.height - poulet.hauteur;
+            if (poulet.posY > posYmax) {
+                poulet.posY = posYmax;
+            }
+
+            //Dessiner le poulet
+            ctx.drawImage(poulet.img, poulet.sourceX, 0, poulet.largeur, poulet.hauteur, poulet.posX, poulet.posY, poulet.largeur, poulet.hauteur);
+
+        }
+
+        //Fonction pour dessiner le mur
+        function deplacerLeMur() {
+            //Le mur se déplave cers la gauche
+            mur.posX -= mur.vitesseX;
+
+            //Dessiner le mur
+            ctx.drawImage(mur.img, mur.posX, mur.posY);
+        }
+
+
+
+        //Fonction pour gérer la vignette  à afficher pour l'animation du poulet
+        function gererImageDuPoulet() {
+
+            //Définir la coordonnée sX de la vignette à afficher
+            poulet.sourceX = poulet.indexVignette * poulet.largeur;
+
+            //Incrémenter et gérer l’index de la prochaine vignette à afficher
+            poulet.indexVignette++;
+
+            if (poulet.indexVignette == poulet.nbVignettes) {
+                poulet.indexVignette = 0;
+            }
+        }
+
+        //Fonction pour l'animation finale du poulet
+        function animerLePouletDeLaFinDuJeu() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Définir la coordonnée sX de la vignette à afficher
+            poulet.sourceX = poulet.indexVignette * poulet.largeur;
+
+            //Incrémenter et gérer l’index de la prochaine vignette à afficher
+            poulet.indexVignette++;
+
+            if (poulet.indexVignette == poulet.nbVignettes) {
+                poulet.indexVignette = 0;
+            }
+
+            //Dessiner le poulet
+            ctx.drawImage(poulet.img, poulet.sourceX, 0, poulet.largeur, poulet.hauteur, poulet.posX, poulet.posY, poulet.largeur, poulet.hauteur);
+        }
+
+
+        //Détecte si deux objets rectangulaires se touchent
+        function detecterCollision(objet1, objet2) {
+            if (objet1.posX < objet2.posX + objet2.largeur &&
+                objet1.posX + objet1.largeur > objet2.posX &&
+                objet1.posY < objet2.posY + objet2.hauteur &&
+                objet1.posY + objet1.hauteur > objet2.posY) {
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

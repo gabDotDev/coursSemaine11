@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>03 - Animer le dépacement de ballons avec collisions</title>
+    <style type="text/css">
+        canvas {
+            border: 2px solid black;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h3>On anime des objets <em>ballons</em> dans le canvas avec collision</h3>
+    <canvas width="500" height="300"> </canvas>
+
+    <script>
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+
+        //Déclaration de la variable ballonRouge de type Objet
+        let ballonRouge = {
+            img: new Image(), //image de la balle
+            posX: 0, //Position de départ sur l'axe des x
+            posY: 0, //Position de départ sur l'axe des y
+            vitesseX: 3, //Vitesse horizontale du ballon
+            vitesseY: 3, //Vitesse verticale du ballon
+            largeur: 64, //Largeur du ballon
+            hauteur: 64 //Hauteur du ballon
+        }
+
+        //La source de l'image du ballon rouge
+        ballonRouge.img.src = "images/ballonRouge.png";
+
+
+        //Déclaration de la variable ballonVert de type Objet
+
+        //La source de l'image du ballon vert
+
+
+        //Le ballon vert est placé au milieu et en haut du canvas au démarrage
+
+
+
+        ///////////////////////////////////////////////////////
+        //Actualiser l'animation à une cadence de 60 ips
+        setInterval(actualiserAffichage, 1000 / 60);
+
+        /////////////////// LES FONCTIONS /////////////////// 
+
+
+        //Fonction pour actualiser l'affichage des objets
+        function actualiserAffichage() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Déplacer et dessiner le ballon rouge
+            deplacerLeBallonRouge()
+
+            //Déplacer et dessiner le ballon vert
+
+
+            //Est-ce que les deux ballons sont en collision
+            let siContactEntreLesballons;
+
+            if (true) {
+                //On inverse les vitesses sur l'axe des X
+
+            }
+        }
+
+
+        //Fonction pour déplacer et dessiner le ballon rouge 
+        function deplacerLeBallonRouge() {
+
+            //Ajuster les propriétés de chaque ballon           
+            ballonRouge.posX += ballonRouge.vitesseX;
+            ballonRouge.posY += ballonRouge.vitesseY;
+
+            //On détecte les collisions avec les limites du canvas - on inverse alors les vitesses
+            //Axe horizontal
+            if (ballonRouge.posX < 0 || ballonRouge.posX > leCanvas.width - ballonRouge.largeur) {
+                ballonRouge.vitesseX *= -1;
+            }
+
+            //Axe vertical			
+            if (ballonRouge.posY < 0 || ballonRouge.posY > leCanvas.height - ballonRouge.hauteur) {
+                ballonRouge.vitesseY *= -1;
+            }
+
+            //Dessiner ce ballon
+            ctx.drawImage(ballonRouge.img, ballonRouge.posX, ballonRouge.posY);
+        }
+
+        //Fonction pour déplacer et dessiner le ballon vert
+        function deplacerLeBallonVert() {
+
+            //Ajuster les propriétés de chaque ballon           
+            ballonVert.posX += ballonVert.vitesseX;
+            ballonVert.posY += ballonVert.vitesseY;
+
+            //On détecte les collisions avec les limites du canvas - on inverse alors les vitesses
+            //Axe horizontal
+            if (ballonVert.posX < 0 || ballonVert.posX > leCanvas.width - ballonVert.largeur) {
+                ballonVert.vitesseX *= -1;
+            }
+
+            //Axe vertical			
+            if (ballonVert.posY < 0 || ballonVert.posY > leCanvas.height - ballonVert.hauteur) {
+                ballonVert.vitesseY *= -1;
+            }
+
+            //Dessiner ce ballon
+            ctx.drawImage(ballonVert.img, ballonVert.posX, ballonVert.posY);
+        }
+
+        //Détecte si deux objets circulaires se touchent
+        function detecterCollisionCercle(objet1, objet2) {
+            //Calculs des rayons
+            let rayonObjet1 = objet1.largeur / 2;
+            let rayonObjet2 = objet2.largeur / 2;
+            //Distance entre les 2 objets sur l'axe des X
+            let distanceX = (objet1.posX + rayonObjet1) - (objet2.posX + rayonObjet2);
+            //Distance entre les 2 objets sur l'axe des Y
+            let distanceY = (objet1.posY + rayonObjet1) - (objet2.posY + rayonObjet2);
+            //Calcul de la distance réelle entre les deux objets (hypoténuse)
+            let distanceXY = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            //Si la distance entre les 2 objets est plus petite que la somme de leur rayon
+            if (distanceXY < rayonObjet1 + rayonObjet2) {
+                console.log("collision");
+                return true;
+
+            } else {
+                console.log("pas de collision");
+                return false;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

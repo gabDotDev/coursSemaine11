@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>02 - Animer le dépacement d'un objet balle</title>
+    <style type="text/css">
+        canvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>On anime un objet <em>balle</em> dans le canvas</h3>
+    <canvas width="500" height="150"> </canvas>
+
+    <script>
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+        
+        //Créer et charger l'image de la balle
+        let imgBalle = new Image();
+        imgBalle.src = "images/balle.png";
+
+        //Autres variables de l'application
+        //Pour positionner la balle
+        let posXBalle = 0;
+        let posYBalle = 0;
+        let vitesse = 3;
+        let largeurBalle = 40;
+        let hauteurBalle = 40;
+
+        //
+
+        //Déclaration de la variale balle de type Objet
+        let balle = {
+            img: new Image(),
+            posX: 0,
+            posY: 0,
+            largeur: 40,
+            hauteur: 40,
+            vitesse: 3
+        }
+
+        //La source de l'image de la balle
+        balle.img.src = "images/balle.png";
+
+        //Dessin du déplacement de la balle à une cadence 60 ips (images par seconde)
+        setInterval(deplacerBalle, 1000 / 60);
+
+
+        /////////////////// LES FONCTIONS /////////////////// 
+
+
+        //Fonction pour déplacer la balle
+        function deplacerBalle() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //La balle est au centre vertical du canvas
+            balle.posY = (leCanvas.height - balle.hauteur) /2;
+
+            //Modifier la position horizontale de la balle
+            balle.posX += balle.vitesse;
+
+
+            //Si la balle touche les côtés droit ou gauche du canvas
+            //On inverse la vitesse
+            let posXmax = leCanvas.width - balle.largeur;
+            if (balle.posX < 0 || balle.posX > posXmax) {
+                balle.vitesse *=-1;
+            }
+
+            //Dessiner la balle
+            ctx.drawImage(balle.img, balle.posX, balle.posY);
+
+        }
+    </script>
+
+</body></html>

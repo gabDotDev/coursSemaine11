@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>04 - Animer le dépacement d'une animation</title>
+    <style type="text/css">
+        canvas {
+            background: linear-gradient(to bottom, #d0ecf4, #00bbd6);
+            border: 2px solid #514f8f;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h3>On anime un objet <em>animation (feuille de sprites)</em> dans le canvas. Appuyer la barre d'espacement pour changer l'animation</h3>
+    <canvas width="1024" height="400"> </canvas>
+
+    <script>
+        //Récupérer le canvas
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+        //Un poulet animé
+        let poulet = {
+            img: new Image(),
+            largeur: 104, //Largeur d'une vignette et du dessin dans le canvas
+            hauteur: 86, //Hauteur d'une vignette et du dessin dans le canvas
+            nbVignettes: 8,
+            indexVignette: 0,
+            sourceX: 0,
+            posX: 0, //Position initiale du poulet sur l'axe des X
+            posY: 0, //Position initiale du poulet sur l'axe des Y
+            vitesseX: 2, //Vitesse du poulet sur l'axe des X
+            vitesseY: 2, //Vitesse du poulet sur l'axe des Y
+        }
+
+        //Mettre la première animation
+        poulet.img.src = "images/volPoulet_Jeu.png";
+
+        /////////////////////////////////////////////////////
+
+        //Déplacement du poulet à une cadence de 60 ips
+        setInterval(deplacerLePoulet, 1000 / 60);
+
+        //Changer l'image du poulet à une cadence de 12 ips
+
+
+        //Au relâchement de la barre d'espacement on change l'animation du poulet
+        document.addEventListener("keyup", changerAnimation);
+
+        //////////////  LES FONCTIONS //////////////////////
+
+        //Fonction pour dessiner le poulet
+        function deplacerLePoulet() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Déplacer le poulet
+            poulet.posX += poulet.vitesseX;
+            poulet.posY += poulet.vitesseY;
+
+            //Limite droite
+            if (poulet.posX > leCanvas.width) {
+                poulet.posX = -poulet.largeur;
+            }
+
+            //Limite haut/bas
+            let posYmax = leCanvas.height / 2 - poulet.hauteur;
+            if (poulet.posY < 0 || poulet.posY > posYmax) {
+                poulet.vitesseY *= -1; //ou poulet.vitesseY = -poulet.vitesseY
+            }
+
+            //Dessiner le poulet
+
+
+        }
+
+
+        //Fonction pour gérer la vignette  à afficher pour l'animation du poulet
+        function gererImageDuPoulet() {
+
+            //Définir la coordonnée sX de la vignette à afficher
+
+
+            //Incrémenter et gérer l’index de la prochaine vignette à afficher
+
+
+            if (true) {
+
+            }
+        }
+
+
+        //Fonction pour changer l'animation du poulet, en alternance
+        //Au relàchement de la barre d'espacement
+        function changerAnimation(event) {
+            //On change l'animation entre l'animation pour le jeu
+            //Ou l'animation si la partie est gagnée
+            console.log(poulet.img.src);
+            if (event.keyCode == 32) { //Touche 32            
+                if (true) {
+
+                } else {
+
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

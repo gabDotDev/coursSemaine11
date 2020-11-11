@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>05 - Déplacer un objet animé</title>
+    <style type="text/css">
+        canvas {
+            background: linear-gradient(to bottom, #d0ecf4, #00bbd6);
+            border: 2px solid #514f8f;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>On déplace une <em>animation (feuille de sprites)</em> dans le canvas avec les flèches <b>&#8593; ou &#8595;</b> du clavier </h3>
+    <canvas width="1024" height="400"> </canvas>
+
+    <script>
+        //Récupérer le canvas
+        let leCanvas = document.querySelector("canvas");
+        let ctx = leCanvas.getContext("2d");
+
+        //Un poulet animé
+        let poulet = {
+            img: new Image(),
+            largeur: 104, //Largeur d'une vignette et du dessin dans le canvas
+            hauteur: 86, //Hauteur d'une vignette et du dessin dans le canvas
+            nbVignettes: 8,
+            indexVignette: 0,
+            sourceX: 0,
+            posX: leCanvas.width * 0.05, //Position sur l'axe des X
+            posY: leCanvas.height * 0.3, //Position initiale sur l'axe des Y
+            vitesseY: 4, //Vitesse du poulet sur l'axe des Y
+        }
+
+        //Mettre la première animation
+        poulet.img.src = "images/volPoulet_Jeu.png";
+
+        //Les flèches du clavier
+        let flecheHaut = false;
+        let flecheBas = false;
+
+        /////////////////////////////////////////////////////
+
+        //Actualisation du jeu à une cadence de 60 ips
+        let intervalIDActualiserJeu = setInterval(actualiserLeJeu, 1000 / 60);
+
+        //Changer l'image du poulet à une cadence de 12 ips
+        let intervalIDImagePoulet = setInterval(gererImageDuPoulet, 1000 / 12);
+
+        //Écouteur sur le document pour détecter si des touches de clavier sont appuyées ou relâchées
+        document.addEventListener("keydown", presserTouche);
+        document.addEventListener("keyup", relacherTouche);
+
+
+        //////////////  LES FONCTIONS //////////////////////
+        //Fonction pour actualiser l'affichage du jeu     
+        function actualiserLeJeu() {
+            //Effacer le canvas
+            ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
+
+            //Déplacer le poulet
+            deplacerLePoulet();
+        }
+
+
+        // Détecte quelles touches sont appuyées
+        function presserTouche(event) {
+            //Enregistrer si une touche haut/bas est pressée
+            if (event.keyCode == 38) { //flèche haut
+                flecheHaut = true;
+
+            }
+            if (event.keyCode == 40) { //flèche bas
+                flecheBas = true;
+
+            }
+        }
+
+        // Détecte quelles touches sont relâchées
+        function relacherTouche(event) {
+            //Enregistrer si une touche haut/bas est relâchée
+            if (event.keyCode == 38) { //flèche haut
+                flecheHaut = false;
+            }
+            if (event.keyCode == 40) { //flèche bas
+                flecheBas = false;
+            }
+        }
+
+        //Fonction pour déplacer le poulet
+        function deplacerLePoulet() {
+            //On déplace le poulet selon la touche active
+            if (flecheHaut) {
+
+            }
+            if (flecheBas) {
+
+            }
+
+            //S'assurer que le poulet ne sort pas des limites du canvas
+            //Limite haut
+            if (true) {
+
+            }
+
+            //Limite bas
+            let posYmax = leCanvas.height - poulet.hauteur;
+            if (true) {
+
+            }
+
+            //Dessiner le poulet
+            ctx.drawImage(poulet.img, poulet.sourceX, 0, poulet.largeur, poulet.hauteur, poulet.posX, poulet.posY, poulet.largeur, poulet.hauteur);
+
+        }
+
+
+        //Fonction pour gérer la vignette  à afficher pour l'animation du poulet
+        function gererImageDuPoulet() {
+
+            //Définir la coordonnée sX de la vignette à afficher
+            poulet.sourceX = poulet.indexVignette * poulet.largeur;
+
+            //Incrémenter et gérer l’index de la prochaine vignette à afficher
+            poulet.indexVignette++;
+
+            if (poulet.indexVignette == poulet.nbVignettes) {
+                poulet.indexVignette = 0;
+            }
+        }
+    </script>
+
+</body></html>
