@@ -93,22 +93,22 @@
         function deplacerLePoulet() {
             //On déplace le poulet selon la touche active
             if (flecheHaut) {
-
+                poulet.posY -= poulet.vitesseY;
             }
             if (flecheBas) {
-
+                poulet.posY += poulet.vitesseY;
             }
 
             //S'assurer que le poulet ne sort pas des limites du canvas
             //Limite haut
-            if (true) {
-
+            if (poulet.posY < 0) {
+                poulet.posY = 0;
             }
 
             //Limite bas
             let posYmax = leCanvas.height - poulet.hauteur;
-            if (true) {
-
+            if (poulet.posY > posYmax) {
+                poulet.posY = posYmax;
             }
 
             //Dessiner le poulet
