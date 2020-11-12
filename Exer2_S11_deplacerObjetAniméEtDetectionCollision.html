@@ -39,11 +39,19 @@
         poulet.img.src = "images/volPoulet_Jeu.png";
 
         //Le mur 
+        let mur = {
+            img: new Image(),
+            largeur: 100, //Largeur d'une vignette et du dessin dans le canvas
+            hauteur: 300, //Hauteur d'une vignette et du dessin dans le canvas
+            posX: leCanvas.width, //Position sur l'axe des X
+            posY: 0, //Position initiale sur l'axe des Y
+            vitesseX: 4
+        }
 
-        //Au démarrage le mur est placé en bas et è l'extrémité droite du canvas
-
+        //Au démarrage le mur est placé en bas et à l'extrémité droite du canvas
+        mur.posY = leCanvas.height - mur.hauteur;
         //L'image du mur
-
+        mur.img.src = "images/mur.png";
 
 
         //Les flèches du clavier
@@ -70,31 +78,37 @@
             ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
 
             //Déplacer le mur
-
+            deplacerLeMur();
 
             //Déplacer le poulet
             deplacerLePoulet();
 
+            let finJeu = false;
+
             //S'il y a une collision entre le poulet et le mur
             //C'est la fin du jeu et le poulet perd...
-            let finJeu = false;
-            let siCollisionPouletMur;
+            let siCollisionPouletMur = detecterCollision(poulet, mur);
 
-            if (true) {
-
+            if (siCollisionPouletMur) {
+                poulet.img.src = "images/volPoulet_Perd.png";
             }
 
             //Si le mur sort de la scène
-            //C'est aussi la fin du jeu et le poulet gagne
-            if (true) {
-
+            if (mur.posX < -mur.largeur){ // rajouter && finJeu != false dans la condition si on voulait ajouter qqch après que le joueur perde
+                //C'est aussi la fin du jeu et le poulet gagne
+                finJeu == true;
+                poulet.img.src = "images/volPoulet_Gagne.png";
+                
             }
-
+            
+            
             //Si le jeu est fini, on arrête les minuteries en cours
-            //Et on part l'animation de la fin à une cadence de 12 ips
             //L'animation de fin joue à l'infini...
-            if (true) {
-
+            //Et on part l'animation de la fin à une cadence de 12 ips
+            if (finJeu == true) {
+                clearInterval(intervalIDActualiserJeu);
+                clearInterval(intervalIDImagePoulet);
+                setInterval(animerLePouletDeLaFinDuJeu, 1000 / 12);
             }
         }
 
@@ -152,7 +166,7 @@
 
         //Fonction pour dessiner le mur
         function deplacerLeMur() {
-            //Le mur se déplave cers la gauche
+            //Le mur se déplace vers la gauche
             mur.posX -= mur.vitesseX;
 
             //Dessiner le mur
