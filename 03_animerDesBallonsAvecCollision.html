@@ -37,12 +37,22 @@
 
 
         //Déclaration de la variable ballonVert de type Objet
+        let ballonVert = {
+            img: new Image(), //image de la balle
+            posX: 0, //Position de départ sur l'axe des x
+            posY: 0, //Position de départ sur l'axe des y
+            vitesseX: 3, //Vitesse horizontale du ballon
+            vitesseY: 3, //Vitesse verticale du ballon
+            largeur: 64, //Largeur du ballon
+            hauteur: 64 //Hauteur du ballon
+        }
 
         //La source de l'image du ballon vert
-
+        ballonVert.img.src = "images/ballonVert.png";
 
         //Le ballon vert est placé au milieu et en haut du canvas au démarrage
-
+        ballonVert.posX = leCanvas.width/2;
+        ballonVert.posY = leCanvas.height/2
 
 
         ///////////////////////////////////////////////////////
@@ -58,17 +68,18 @@
             ctx.clearRect(0, 0, leCanvas.width, leCanvas.height);
 
             //Déplacer et dessiner le ballon rouge
-            deplacerLeBallonRouge()
+            deplacerLeBallonRouge();
 
             //Déplacer et dessiner le ballon vert
-
+            deplacerLeBallonVert();
 
             //Est-ce que les deux ballons sont en collision
-            let siContactEntreLesballons;
+            let siContactEntreLesballons = detecterCollisionCercle(ballonRouge, ballonVert);
 
-            if (true) {
+            if (siContactEntreLesballons) {
                 //On inverse les vitesses sur l'axe des X
-
+                ballonVert.vitesseX *= -1;
+                ballonRouge.vitesseX *= -1;
             }
         }
 

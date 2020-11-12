@@ -45,7 +45,7 @@
         setInterval(deplacerLePoulet, 1000 / 60);
 
         //Changer l'image du poulet à une cadence de 12 ips
-
+        setInterval(gererImageDuPoulet, 1000 / 12);
 
         //Au relâchement de la barre d'espacement on change l'animation du poulet
         document.addEventListener("keyup", changerAnimation);
@@ -73,8 +73,7 @@
             }
 
             //Dessiner le poulet
-
-
+            ctx.drawImage(poulet.img, poulet.sourceX, 0, poulet.largeur, poulet.hauteur, poulet.posX, poulet.posY, poulet.largeur, poulet.hauteur);
         }
 
 
@@ -82,13 +81,13 @@
         function gererImageDuPoulet() {
 
             //Définir la coordonnée sX de la vignette à afficher
-
+            poulet.sourceX = poulet.indexVignette * poulet.largeur;
 
             //Incrémenter et gérer l’index de la prochaine vignette à afficher
+            poulet.indexVignette++;
 
-
-            if (true) {
-
+            if (poulet.indexVignette == poulet.nbVignettes) {
+                poulet.indexVignette = 0;
             }
         }
 
@@ -100,10 +99,10 @@
             //Ou l'animation si la partie est gagnée
             console.log(poulet.img.src);
             if (event.keyCode == 32) { //Touche 32            
-                if (true) {
-
+                if (poulet.img.src.includes("Jeu")) {
+                    poulet.img.src = "images/volPoulet_Gagne.png";
                 } else {
-
+                    poulet.img.src = "images/volPoulet_Jeu.png";
                 }
             }
         }
